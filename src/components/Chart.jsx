@@ -4,7 +4,7 @@ import { createChart } from 'lightweight-charts'
 
 export function Chart (props) {
   const chartContainerRef = useRef()
-  const chartData = useChartData()
+  const chartData = useChartData({ precision: '1D' })
 
   useEffect(() => {
     const handleResize = () => {
