@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react'
-import { useChartData } from '../hooks/useChartData'
+import { createContext, useEffect, useRef, useState } from 'react'
 import { createChart } from 'lightweight-charts'
 
-export function Chart (props) {
+export const ChartContext = createContext()
+
+export function Chart ({ children }) {
   const chartContainerRef = useRef()
-  const chartData = useChartData({ precision: '1D' })
+  const [chartApi, setChartApi] = useState()
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,20 +16,21 @@ export function Chart (props) {
       width: chartContainerRef.current.clientWidth,
       height: 300
     })
-    // chart.timeScale().fitContent()
 
-    const newSeries = chart.addAreaSeries()
-    newSeries.setData(chartData)
-
+    setChartApi(chart)
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
       chart.remove()
     }
-  })
+  }, [])
 
   return (
-    <div ref={chartContainerRef} />
+    <ChartContext.Provider value={chartApi}>
+      <div ref={chartContainerRef}>
+        {children}
+      </div>
+    </ChartContext.Provider>
   )
 }
