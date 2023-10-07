@@ -3,7 +3,7 @@ import { createChart } from 'lightweight-charts'
 
 export const ChartContext = createContext()
 
-export function Chart ({ children }) {
+export function ChartContainer ({ children }) {
   const chartContainerRef = useRef()
   const [chartApi, setChartApi] = useState()
 

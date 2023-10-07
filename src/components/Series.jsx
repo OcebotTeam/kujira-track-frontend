@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import { ChartContext } from './Chart'
+import { ChartContext } from './ChartContainer'
 
 export function Series ({ children, type, data }) {
   const chartApi = useContext(ChartContext)
