@@ -15,8 +15,6 @@ export function CandleChart ({ children, pair, price, volume }) {
     daysPeriod: timeFrame.periodBatch
   })
 
-  console.log(chartData)
-
   const handleSubmit = (event) => {
     event.preventDefault()
   }
