@@ -3,16 +3,16 @@ import { ChartContainer } from './ChartContainer'
 import { Series } from './Series'
 import { calculateSMA } from '../utility/sma'
 import { useState } from 'react'
-import { tickPrecision } from '../services/tickPrecision'
+import { timeFrames } from '../services/timeFrames'
 
 export function CandleChart ({ children, pair }) {
   const [showSma, setShowSma] = useState(true)
   const [smaPeriods, setSmaPeriods] = useState(30)
-  const [temporality, setTemporality] = useState()
+  const [timeFrame, setTimeFrame] = useState(timeFrames.day1.value)
 
   const chartData = useChartData({
     pairContract: pair.contract,
-    precision: tickPrecision.day1,
+    precision: timeFrame,
     periods: 100
   })
 
@@ -25,17 +25,33 @@ export function CandleChart ({ children, pair }) {
     setSmaPeriods(newSmaPeriod)
   }
 
+  const handleTimeFrameChange = (event) => {
+    const newTimeFrame = event.target.value
+    setTimeFrame(newTimeFrame)
+  }
+
   return (
     <ChartContainer>
       <form onSubmit={handleSubmit}>
+
         <label htmlFor='temp-input'>TEMP</label>
-        <select id='temp-input'>
-          <option value='1D'>1D</option>
-          <option value='1M'>1M</option>
+        <select id='temp-input' value={timeFrame} onChange={handleTimeFrameChange}>
+          {
+            Object.entries(timeFrames)
+              .filter(timeFrame => timeFrame[1].active)
+              .map(timeFrame => {
+                return (
+                  <option key={`timeFrameOption${timeFrame}`} value={timeFrame[1].value}>
+                    {timeFrame[1].label}
+                  </option>
+                )
+              })
+          }
         </select>
 
         <label htmlFor='sma-input'>SMA</label>
         <input id='sma-input' type='number' value={smaPeriods} onChange={handleSmaChange} />
+
       </form>
       <Series type='histogram' data={chartData} />
       {showSma && <Series type='line' data={calculateSMA(chartData, smaPeriods)} />}
