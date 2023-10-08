@@ -1,20 +1,21 @@
-import { useChartData } from '../hooks/useChartData'
+import { useCandleData } from '../hooks/useCandleData'
 import { ChartContainer } from './ChartContainer'
 import { Series } from './Series'
 import { calculateSMA } from '../utility/sma'
 import { useState } from 'react'
 import { timeFrames } from '../services/timeFrames'
 
-export function CandleChart ({ children, pair }) {
-  const [showSma, setShowSma] = useState(true)
+export function CandleChart ({ children, pair, price, volume }) {
   const [smaPeriods, setSmaPeriods] = useState(30)
-  const [timeFrame, setTimeFrame] = useState(timeFrames.day1.value)
+  const [timeFrame, setTimeFrame] = useState(timeFrames.day1)
 
-  const chartData = useChartData({
+  const chartData = useCandleData({
     pairContract: pair.contract,
-    precision: timeFrame,
-    periods: 100
+    precision: timeFrame.value,
+    daysPeriod: timeFrame.periodBatch
   })
+
+  console.log(chartData)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -22,12 +23,12 @@ export function CandleChart ({ children, pair }) {
 
   const handleSmaChange = (event) => {
     const newSmaPeriod = event.target.value
-    setSmaPeriods(newSmaPeriod)
+    setSmaPeriods(timeFrames[newSmaPeriod])
   }
 
   const handleTimeFrameChange = (event) => {
-    const newTimeFrame = event.target.value
-    setTimeFrame(newTimeFrame)
+    const timeFrameKey = event.target.value
+    setTimeFrame(timeFrames[timeFrameKey])
   }
 
   return (
@@ -35,13 +36,13 @@ export function CandleChart ({ children, pair }) {
       <form onSubmit={handleSubmit}>
 
         <label htmlFor='temp-input'>TEMP</label>
-        <select id='temp-input' value={timeFrame} onChange={handleTimeFrameChange}>
+        <select id='temp-input' value={timeFrame.key} onChange={handleTimeFrameChange}>
           {
             Object.entries(timeFrames)
               .filter(timeFrame => timeFrame[1].active)
               .map(timeFrame => {
                 return (
-                  <option key={`timeFrameOption${timeFrame}`} value={timeFrame[1].value}>
+                  <option key={`timeFrameOption${timeFrame}`} value={timeFrame[0]}>
                     {timeFrame[1].label}
                   </option>
                 )
@@ -53,8 +54,9 @@ export function CandleChart ({ children, pair }) {
         <input id='sma-input' type='number' value={smaPeriods} onChange={handleSmaChange} />
 
       </form>
-      <Series type='histogram' data={chartData} />
-      {showSma && <Series type='line' data={calculateSMA(chartData, smaPeriods)} />}
+      {price && <Series type='bar' data={chartData} />}
+      {volume && <Series type='histogram' data={chartData} />}
+      {volume && <Series type='line' data={calculateSMA(chartData, smaPeriods)} />}
     </ChartContainer>
   )
 }

@@ -13,6 +13,9 @@ export function Series ({ children, type, data }) {
       case 'histogram':
         series.current = chartApi.addHistogramSeries()
         break
+      case 'bar':
+        series.current = chartApi.addBarSeries()
+        break
       case 'line':
       default:
         series.current = chartApi.addLineSeries()

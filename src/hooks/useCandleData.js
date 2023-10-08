@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react'
 import { getCandles } from '../services/candles'
 
-export function useChartData ({ pairContract, precision, periods }) {
+export function useCandleData ({ pairContract, precision, daysPeriod }) {
   const [chartData, setChartData] = useState([])
-
-  console.log(precision)
-
   useEffect(() => {
-    getCandles({ pairContract, precision, periods })
+    getCandles({ pairContract, precision, daysPeriod })
       .then(data => setChartData(data))
-  }, [pairContract, precision, periods])
+  }, [pairContract, precision, daysPeriod])
 
   return chartData
 }
