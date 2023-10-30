@@ -8,11 +8,13 @@ import { timeFrames } from '../services/timeFrames'
 export function CandleChart ({ children, pair, price, volume }) {
   const [smaPeriods, setSmaPeriods] = useState(30)
   const [timeFrame, setTimeFrame] = useState(timeFrames.day1)
+  const [batch, setbatch] = useState(1)
 
   const chartData = useCandleData({
     pairContract: pair.contract,
     precision: timeFrame.value,
-    daysPeriod: timeFrame.periodBatch
+    daysPeriod: timeFrame.daysBatch,
+    batch
   })
 
   const handleSubmit = (event) => {
@@ -21,7 +23,7 @@ export function CandleChart ({ children, pair, price, volume }) {
 
   const handleSmaChange = (event) => {
     const newSmaPeriod = event.target.value
-    setSmaPeriods(timeFrames[newSmaPeriod])
+    setSmaPeriods(newSmaPeriod)
   }
 
   const handleTimeFrameChange = (event) => {
@@ -29,8 +31,16 @@ export function CandleChart ({ children, pair, price, volume }) {
     setTimeFrame(timeFrames[timeFrameKey])
   }
 
+  const handleVisibleTimeRangeChange = (event) => {
+    const timeDiff = event.to - event.from
+    console.log(timeDiff)
+    if (timeDiff < 5000000) {
+      console.log('load')
+    }
+  }
+
   return (
-    <ChartContainer>
+    <ChartContainer handleVisibleTimeRangeChange={handleVisibleTimeRangeChange}>
       <form onSubmit={handleSubmit}>
 
         <label htmlFor='temp-input'>TEMP</label>

@@ -32,15 +32,17 @@ const chartDataFormat = (data) => {
   })
 }
 
-export function getCandles ({ pairContract, precision, daysPeriod }) {
+export function getCandles ({ pairContract, precision, daysPeriod, batch }) {
   const toDate = new Date()
-  const fromDate = new Date()
-
   toDate.setSeconds(0)
   toDate.setMinutes(0)
+  toDate.setDate(toDate.getDate() - daysPeriod * (batch - 1))
+  // console.log(toDate.getDate);
+
+  const fromDate = new Date()
   fromDate.setSeconds(0)
   fromDate.setMinutes(0)
-  fromDate.setDate(fromDate.getDate() - daysPeriod + 1)
+  fromDate.setDate(fromDate.getDate() + 1 - daysPeriod * batch)
 
   const baseEnpoint = 'https://kuji.dev.beepolar.com/index.php'
   const endpoint = `${baseEnpoint}/kbridge/cached/candles?contract=${pairContract}&precision=${precision}&from=${dateToApiFormat(fromDate)}&to=${dateToApiFormat(toDate)}`

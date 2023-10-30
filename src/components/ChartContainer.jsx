@@ -3,7 +3,7 @@ import { createChart } from 'lightweight-charts'
 
 export const ChartContext = createContext()
 
-export function ChartContainer ({ children }) {
+export function ChartContainer ({ children, handleVisibleTimeRangeChange = () => {} }) {
   const chartContainerRef = useRef()
   const [chartApi, setChartApi] = useState()
 
@@ -18,10 +18,12 @@ export function ChartContainer ({ children }) {
     })
 
     setChartApi(chart)
+    chart.timeScale().subscribeVisibleTimeRangeChange(handleVisibleTimeRangeChange)
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
+      chart.timeScale().unsubscribeVisibleTimeRangeChange(handleVisibleTimeRangeChange)
       chart.remove()
     }
   }, [])
