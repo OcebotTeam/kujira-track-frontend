@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { getCandles } from '../services/candles'
 
-export function useCandleData ({ pairContract, precision, daysPeriod, batch }) {
+export function useCandleData ({ tickerId, timeframe, page }) {
   const [chartData, setChartData] = useState([])
 
   useEffect(() => {
-    getCandles({ pairContract, precision, daysPeriod, batch })
+    getCandles({ tickerId, timeframe, page })
       .then(data => setChartData(data))
-  }, [pairContract, precision, daysPeriod, batch])
+  }, [tickerId, timeframe, page])
 
   return chartData
 }

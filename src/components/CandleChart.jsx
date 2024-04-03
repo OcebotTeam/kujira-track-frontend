@@ -5,17 +5,12 @@ import { calculateSMA } from '../utility/sma'
 import { useState } from 'react'
 import { timeFrames } from '../services/timeFrames'
 
-export function CandleChart ({ children, pair, price, volume }) {
+export function CandleChart ({ children, tickerId, price, volume }) {
   const [smaPeriods, setSmaPeriods] = useState(30)
-  const [timeFrame, setTimeFrame] = useState(timeFrames.day1)
-  const [batch, setbatch] = useState(1)
+  const [timeframe, setTimeframe] = useState('daily')
+  const [page] = useState(0)
 
-  const chartData = useCandleData({
-    pairContract: pair.contract,
-    precision: timeFrame.value,
-    daysPeriod: timeFrame.daysBatch,
-    batch
-  })
+  const chartData = useCandleData({ tickerId, timeframe, page })
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -28,15 +23,12 @@ export function CandleChart ({ children, pair, price, volume }) {
 
   const handleTimeFrameChange = (event) => {
     const timeFrameKey = event.target.value
-    setTimeFrame(timeFrames[timeFrameKey])
+    setTimeframe(timeFrames[timeFrameKey])
   }
 
   const handleVisibleTimeRangeChange = (event) => {
-    const timeDiff = event.to - event.from
-    console.log(timeDiff)
-    if (timeDiff < 5000000) {
-      console.log('load')
-    }
+    // const timeDiff = event.to - event.from
+    // if (timeDiff < 5000000) {}
   }
 
   return (
@@ -44,7 +36,7 @@ export function CandleChart ({ children, pair, price, volume }) {
       <form onSubmit={handleSubmit}>
 
         <label htmlFor='temp-input'>TEMP</label>
-        <select id='temp-input' value={timeFrame.key} onChange={handleTimeFrameChange}>
+        <select id='temp-input' value={timeframe.key} onChange={handleTimeFrameChange}>
           {
             Object.entries(timeFrames)
               .filter(timeFrame => timeFrame[1].active)

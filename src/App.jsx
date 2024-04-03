@@ -1,11 +1,10 @@
 import { CandleChart } from './components/CandleChart'
-import { pairs } from './services/pairs'
 
 export function App (props) {
   return (
     <>
-      <CandleChart pair={pairs.KUJI_USK} price />
-      <CandleChart pair={pairs.KUJI_axlUSDC} volume />
+      <CandleChart tickerId='KUJI_USK' price />
+      <CandleChart tickerId='KUJI_USK' volume />
     </>
   )
 }

@@ -1,6 +1,6 @@
-export function getCandles ({ tickerId, timeframe, page }) {
+export function getFinContracts () {
   const enpoint = import.meta.env.VITE_KT_API_ENDPOINT
-  const endpoint = `${enpoint}/fin/contracts/${tickerId}/candles?timeframe=${timeframe}&page=${page}`
+  const endpoint = `${enpoint}/fin/contracts`
 
   return fetch(endpoint)
     .then(response => response.json())
