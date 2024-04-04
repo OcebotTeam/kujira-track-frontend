@@ -4,7 +4,5 @@ export function getFinContracts () {
 
   return fetch(endpoint)
     .then(response => response.json())
-    .then(json => {
-      return json
-    })
+    .then(json => json)
 }
