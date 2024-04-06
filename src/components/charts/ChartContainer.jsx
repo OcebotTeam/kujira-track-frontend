@@ -1,3 +1,4 @@
+import tailwindConfig from '../../../tailwind.config'
 import { createContext, useEffect, useRef, useState } from 'react'
 import { createChart } from 'lightweight-charts'
 
@@ -14,7 +15,17 @@ export function ChartContainer ({ children, handleVisibleTimeRangeChange = () =>
 
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
-      height: 300
+      height: 300,
+      layout: {
+        background: {
+          color: 'transparent'
+        },
+        textColor: '#fff'
+      },
+      grid: {
+        vertLines: { color: tailwindConfig.theme.colors.darker },
+        horzLines: { color: tailwindConfig.theme.colors.darker }
+      }
     })
 
     setChartApi(chart)

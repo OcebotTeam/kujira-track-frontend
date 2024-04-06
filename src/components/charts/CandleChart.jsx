@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useCandles } from '../hooks/useCandles'
-import { useTimeframe } from '../hooks/useTimeframe'
+import { useCandles } from '../../hooks/useCandles'
+import { useTimeframe } from '../../hooks/useTimeframe'
 import { ChartContainer } from './ChartContainer'
 import { Series } from './Series'
-import { calculateSMA } from '../utility/calculateSMA'
+import { calculateSMA } from '../../utility/calculateSMA'
 
-export function CandleChart ({ children, tickerId, price, volume }) {
+export function CandleChart ({ tickerId, price, volume }) {
   const [smaPeriods, setSmaPeriods] = useState(30)
   const [visibleTimeRange, setVisibleTimeRange] = useState(0)
 
@@ -48,7 +48,6 @@ export function CandleChart ({ children, tickerId, price, volume }) {
 
   return (
     <ChartContainer handleVisibleTimeRangeChange={handleVisibleTimeRangeChange}>
-      <p>{currentPrecision()}</p>
       <form onSubmit={handleSubmit}>
 
         <label htmlFor='temp-input'>TF</label>
@@ -68,7 +67,7 @@ export function CandleChart ({ children, tickerId, price, volume }) {
         <input id='sma-input' type='number' value={smaPeriods} onChange={handleSmaChange} />
 
       </form>
-      {price && <Series type='bar' data={candles} />}
+      {price && <Series type='candlestick' data={candles} />}
       {volume && <Series type='histogram' data={candles} />}
       {volume && <Series type='line' data={calculateSMA(candles, smaPeriods)} />}
     </ChartContainer>
