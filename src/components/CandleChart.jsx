@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCandles } from '../hooks/useCandles'
 import { useTimeframe } from '../hooks/useTimeframe'
 import { ChartContainer } from './ChartContainer'
@@ -7,6 +7,7 @@ import { calculateSMA } from '../utility/calculateSMA'
 
 export function CandleChart ({ children, tickerId, price, volume }) {
   const [smaPeriods, setSmaPeriods] = useState(30)
+  const [visibleTimeRange, setVisibleTimeRange] = useState(0)
 
   const {
     changeTimeframe,
@@ -17,8 +18,13 @@ export function CandleChart ({ children, tickerId, price, volume }) {
 
   const {
     candles,
-    nextPage
+    updateCandles
   } = useCandles({ tickerId, timeframe: currentPrecision() })
+
+  useEffect(() => {
+    if (!visibleTimeRange) return
+    updateCandles(visibleTimeRange)
+  }, [visibleTimeRange])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -35,13 +41,14 @@ export function CandleChart ({ children, tickerId, price, volume }) {
   }
 
   const handleVisibleTimeRangeChange = (event) => {
-    // const timeDiff = event.to - event.from
-    // if (timeDiff < 5000000) {}
+    if (event !== null) {
+      setVisibleTimeRange(event.from)
+    }
   }
 
   return (
     <ChartContainer handleVisibleTimeRangeChange={handleVisibleTimeRangeChange}>
-      <button onClick={nextPage}>Next page</button>
+      <p>{currentPrecision()}</p>
       <form onSubmit={handleSubmit}>
 
         <label htmlFor='temp-input'>TF</label>

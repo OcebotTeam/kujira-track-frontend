@@ -5,28 +5,44 @@ export function useCandles ({ tickerId, timeframe }) {
   const [candles, setCandles] = useState([])
   const [page, setPage] = useState(0)
 
-  const candlesObtainer = (reset) => {
+  const candlesUpdater = (currentCandles, page) => {
+    setPage(page)
+    setCandles(currentCandles)
+
     if (!timeframe) return
+
     getCandles({ tickerId, timeframe, page })
       .then(data => {
-        setCandles(candles => data.concat(candles))
+        setCandles(data.concat(currentCandles))
       })
   }
 
-  // Load new page of candles when page changes
-  useEffect(() => {
-    candlesObtainer()
-  }, [page, timeframe])
-
   // Reset all values when timeframe changes
   useEffect(() => {
-    setCandles([])
-    setPage(0)
+    candlesUpdater([], 0)
   }, [timeframe])
+
+  // Load new page of candles when page changes
+  useEffect(() => {
+    candlesUpdater(candles, page)
+  }, [page])
 
   const nextPage = () => {
     setPage(page + 1)
   }
 
-  return { candles, nextPage }
+  // Moves to next page in case the param date is the last one in the current candles list
+  const updateCandles = (requestedDate) => {
+    if (!candles.length) return
+
+    const lastCandle = candles[0]
+    if (lastCandle.time === requestedDate) {
+      nextPage()
+    }
+  }
+
+  return {
+    candles,
+    updateCandles
+  }
 }
