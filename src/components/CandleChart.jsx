@@ -15,7 +15,10 @@ export function CandleChart ({ children, tickerId, price, volume }) {
     timeframesList
   } = useTimeframe()
 
-  const { candles } = useCandles({ tickerId, timeframe: currentPrecision() })
+  const {
+    candles,
+    nextPage
+  } = useCandles({ tickerId, timeframe: currentPrecision() })
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -38,6 +41,7 @@ export function CandleChart ({ children, tickerId, price, volume }) {
 
   return (
     <ChartContainer handleVisibleTimeRangeChange={handleVisibleTimeRangeChange}>
+      <button onClick={nextPage}>Next page</button>
       <form onSubmit={handleSubmit}>
 
         <label htmlFor='temp-input'>TF</label>
