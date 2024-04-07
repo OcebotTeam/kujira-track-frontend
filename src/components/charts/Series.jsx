@@ -6,15 +6,25 @@ export function Series ({ children, type, data }) {
   const chartApi = useContext(ChartContext)
   const series = useRef(null)
 
+  const blue = tailwindConfig.theme.colors.blue
+  const teal = tailwindConfig.theme.colors.teal
+
   if (chartApi && !series.current) {
     switch (type) {
       case 'area':
-        series.current = chartApi.addAreaSeries()
+        series.current = chartApi.addAreaSeries({
+          lineColor: blue,
+          topColor: blue,
+          bottomColor: blue,
+          priceFormat: {
+            type: 'volume'
+          }
+        })
         break
 
       case 'histogram':
         series.current = chartApi.addHistogramSeries({
-          color: tailwindConfig.theme.colors.blue,
+          color: blue,
           priceFormat: {
             type: 'volume'
           }
@@ -23,10 +33,10 @@ export function Series ({ children, type, data }) {
 
       case 'candlestick':
         series.current = chartApi.addCandlestickSeries({
-          upColor: tailwindConfig.theme.colors.teal,
-          downColor: tailwindConfig.theme.colors.blue,
-          wickUpColor: tailwindConfig.theme.colors.teal,
-          wickDownColor: tailwindConfig.theme.colors.blue,
+          upColor: teal,
+          downColor: blue,
+          wickUpColor: teal,
+          wickDownColor: blue,
           borderVisible: false
         })
         break
@@ -34,7 +44,7 @@ export function Series ({ children, type, data }) {
       case 'line':
       default:
         series.current = chartApi.addLineSeries({
-          color: tailwindConfig.theme.colors.teal,
+          color: teal,
           priceFormat: {
             type: 'volume'
           }

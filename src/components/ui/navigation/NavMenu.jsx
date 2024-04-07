@@ -1,8 +1,8 @@
-import logoImg from '../../../assets/images/logo.png'
-import { NavMenuLink } from './elements/NavMenuLink'
-import { LinkButton } from './elements/LinkButton'
+import logoImg from '../../../../assets/images/logo.png'
+import { NavMenuLink } from './NavMenuLink'
+import { LinkButton } from '../elements/LinkButton'
 
-export function Navigation (props) {
+export function NavMenu (props) {
   return (
     <nav className='p-4 flex items-center justify-between'>
 
@@ -18,7 +18,7 @@ export function Navigation (props) {
 
         <div className='ms-14'>
           <NavMenuLink href='/'>Dashboard</NavMenuLink>
-          <NavMenuLink href='/'>FIN</NavMenuLink>
+          <NavMenuLink href='/fin'>FIN</NavMenuLink>
         </div>
 
       </div>
