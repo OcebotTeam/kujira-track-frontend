@@ -4,7 +4,7 @@ import { Block } from '../components/ui/elements/Block'
 import { CandleChart } from '../components/charts/CandleChart'
 import { EvolutionChart } from '../components/charts/EvolutionChart'
 
-export function Dashboard(props) {
+export function Dashboard () {
   return (
     <>
       <Container>
