@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { getEvolution } from '../services/getEvolution'
 
-export function useEvolution (type) {
+export function useEvolution (type, diff) {
   const [evolution, setEvolution] = useState([])
 
   useEffect(() => {
-    getEvolution(type)
+    getEvolution(type, diff)
       .then(data => {
         setEvolution(data)
       })
-  }, [type])
+  }, [])
 
   return evolution
 }

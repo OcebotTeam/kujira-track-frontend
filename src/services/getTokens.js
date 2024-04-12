@@ -1,10 +1,6 @@
-export function getEvolution (target, diff) {
+export function getTokens () {
   const enpoint = import.meta.env.VITE_KT_API_ENDPOINT
-  let endpoint = `${enpoint}/${target}`
-
-  if (diff) {
-    endpoint += '/diff'
-  }
+  const endpoint = `${enpoint}/tokens`
 
   return fetch(endpoint)
     .then(response => response.json())

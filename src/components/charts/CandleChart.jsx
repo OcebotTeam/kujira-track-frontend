@@ -46,27 +46,30 @@ export function CandleChart ({ tickerId, price, volume }) {
     }
   }
 
+  const timeframeOptions = timeframesList().map(timeFrame => {
+    return (
+      <option key={`timeFrameOption${timeFrame}`} value={timeFrame}>
+        {timeFrame}
+      </option>
+    )
+  })
+
+  const title = tickerId.replace(/_/g, '/')
+
   return (
     <ChartContainer handleVisibleTimeRangeChange={handleVisibleTimeRangeChange}>
-      <form onSubmit={handleSubmit}>
-
-        <label htmlFor='temp-input'>TF</label>
-        <select id='temp-input' value={currentTimeframe()} onChange={handleTimeframeChange}>
-          {
-            timeframesList().map(timeFrame => {
-              return (
-                <option key={`timeFrameOption${timeFrame}`} value={timeFrame}>
-                  {timeFrame}
-                </option>
-              )
-            })
-          }
-        </select>
-
-        <label htmlFor='sma-input'>SMA</label>
-        <input id='sma-input' type='number' value={smaPeriods} onChange={handleSmaChange} />
-
-      </form>
+      <div className='flex items-center justify-between'>
+        <h3 className='text-white text-xl mb-3'>
+          {title}
+        </h3>
+        <form onSubmit={handleSubmit}>
+          <select id='temp-input' value={currentTimeframe()} onChange={handleTimeframeChange}>
+            {timeframeOptions}
+          </select>
+          <label htmlFor='sma-input'>SMA</label>
+          <input id='sma-input' type='number' value={smaPeriods} onChange={handleSmaChange} />
+        </form>
+      </div>
       {price && <Series type='candlestick' data={candles} />}
       {volume && <Series type='histogram' data={candles} />}
       {volume && <Series type='line' data={calculateSMA(candles, smaPeriods)} />}

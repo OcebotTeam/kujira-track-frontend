@@ -3,6 +3,7 @@ import { TwoColumns } from '../components/ui/layout/TwoColumns'
 import { Block } from '../components/ui/elements/Block'
 import { CandleChart } from '../components/charts/CandleChart'
 import { EvolutionChart } from '../components/charts/EvolutionChart'
+import { EvolutionDiffChart } from '../components/charts/EvolutionDiffChart'
 
 export function Dashboard () {
   return (
@@ -13,10 +14,10 @@ export function Dashboard () {
 
       <Container>
         <TwoColumns>
-          <Block title='KUJI/USK'>
+          <Block>
             <CandleChart tickerId='KUJI_USK' price />
           </Block>
-          <Block title='FIN Volume'>
+          <Block>
             <CandleChart tickerId='KUJI_USK' volume />
           </Block>
         </TwoColumns>
@@ -25,7 +26,11 @@ export function Dashboard () {
       <Container>
         <TwoColumns>
           <Block title='Staked KUJI'>
-            <EvolutionChart target='stakedtokens' />
+            <EvolutionChart target='staking' />
+          </Block>
+
+          <Block title='Staked KUJI Diff'>
+            <EvolutionDiffChart target='staking' diff />
           </Block>
         </TwoColumns>
       </Container>

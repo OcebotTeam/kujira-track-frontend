@@ -9,16 +9,14 @@ export function NavMenu (props) {
       <div className='flex items-center'>
 
         <a href='/' className='inline-flex items-center'>
-          <span className='text-white uppercase font-bold font-display'>
-            Kujira
-            <img src={logoImg} className='inline w-8 mx-1.5' />
-            Track
-          </span>
+          <span className='text-white uppercase font-bold font-display'>Kujira</span>
+          <img src={logoImg} className='inline w-8 mx-1.5' />
+          <span className='text-white uppercase font-bold font-display'>Track</span>
         </a>
 
         <div className='ms-14'>
           <NavMenuLink href='/'>Dashboard</NavMenuLink>
-          <NavMenuLink href='/fin'>FIN</NavMenuLink>
+          <NavMenuLink href='/tokens'>Tokens</NavMenuLink>
         </div>
 
       </div>
