@@ -2,7 +2,7 @@ import tailwindConfig from '../../../tailwind.config'
 import { useContext, useEffect, useRef } from 'react'
 import { ChartContext } from './ChartContainer'
 
-export function Series ({ children, type, data }) {
+export function Series ({ type, data }) {
   const chartApi = useContext(ChartContext)
   const series = useRef(null)
 
@@ -57,6 +57,4 @@ export function Series ({ children, type, data }) {
       series.current.setData(data)
     }
   })
-
-  return children
 }

@@ -10,7 +10,6 @@ import { ChartControlToggler } from '../ui/charts/ChartControlToggler'
 import { ChartControlInput } from '../ui/charts/ChartControlInput'
 
 export function CandleChart ({ tickerId, price, volume }) {
-  const [smaPeriods, setSmaPeriods] = useState(30)
   const [visibleTimeRange, setVisibleTimeRange] = useState(0)
 
   const {
@@ -22,7 +21,9 @@ export function CandleChart ({ tickerId, price, volume }) {
 
   const {
     sma,
+    smaPeriods,
     toggleSma,
+    changeSmaPeriods,
     smaActive
   } = useSma()
 
@@ -38,7 +39,7 @@ export function CandleChart ({ tickerId, price, volume }) {
 
   const handleSmaChange = (event) => {
     const newSmaPeriod = event.target.value
-    setSmaPeriods(newSmaPeriod)
+    changeSmaPeriods(newSmaPeriod)
   }
 
   const handleTimeframeChange = (event) => {

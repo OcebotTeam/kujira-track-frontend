@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-export function useSma () {
-  const [smaActive, setSmaAtive] = useState(false)
+export function useSma (initialStatus = false, initialPeriods = 30) {
+  const [smaActive, setSmaAtive] = useState(initialStatus)
+  const [smaPeriods, setSmaPeriods] = useState(initialPeriods)
 
-  const sma = (baseData, smaPeriods) => {
+  const sma = (baseData) => {
     if (smaPeriods <= 1) {
       return baseData
     }
@@ -32,5 +33,15 @@ export function useSma () {
     setSmaAtive(!smaActive)
   }
 
-  return { sma, toggleSma, smaActive }
+  const changeSmaPeriods = (periods) => {
+    setSmaPeriods(periods)
+  }
+
+  return {
+    sma,
+    smaPeriods,
+    toggleSma,
+    changeSmaPeriods,
+    smaActive
+  }
 }
