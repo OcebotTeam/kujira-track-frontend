@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useCandles } from '../../hooks/useCandles'
 import { useTimeframe } from '../../hooks/useTimeframe'
+import { useSma } from '../../hooks/useSma'
 import { ChartContainer } from './ChartContainer'
 import { Series } from './Series'
-import { calculateSMA } from '../../utility/calculateSMA'
+import { ChartControls } from '../ui/charts/ChartControls'
+import { ChartControlSelect } from '../ui/charts/ChartControlSelect'
+import { ChartControlToggler } from '../ui/charts/ChartControlToggler'
+import { ChartControlInput } from '../ui/charts/ChartControlInput'
 
 export function CandleChart ({ tickerId, price, volume }) {
   const [smaPeriods, setSmaPeriods] = useState(30)
@@ -17,6 +21,12 @@ export function CandleChart ({ tickerId, price, volume }) {
   } = useTimeframe()
 
   const {
+    sma,
+    toggleSma,
+    smaActive
+  } = useSma()
+
+  const {
     candles,
     updateCandles
   } = useCandles({ tickerId, timeframe: currentPrecision() })
@@ -25,10 +35,6 @@ export function CandleChart ({ tickerId, price, volume }) {
     if (!visibleTimeRange) return
     updateCandles(visibleTimeRange)
   }, [visibleTimeRange])
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-  }
 
   const handleSmaChange = (event) => {
     const newSmaPeriod = event.target.value
@@ -48,31 +54,38 @@ export function CandleChart ({ tickerId, price, volume }) {
 
   const timeframeOptions = timeframesList().map(timeFrame => {
     return (
-      <option key={`timeFrameOption${timeFrame}`} value={timeFrame}>
+      <option key={`timeFrameOption${timeFrame}`} value={timeFrame} className='text-darker'>
         {timeFrame}
       </option>
     )
   })
 
-  const title = tickerId.replace(/_/g, '/')
-
   return (
     <ChartContainer handleVisibleTimeRangeChange={handleVisibleTimeRangeChange}>
-      <div className='flex items-center justify-between'>
-        <h3 className='text-white text-xl mb-3'>
-          {title}
-        </h3>
-        <form onSubmit={handleSubmit}>
-          <select id='temp-input' value={currentTimeframe()} onChange={handleTimeframeChange}>
-            {timeframeOptions}
-          </select>
-          <label htmlFor='sma-input'>SMA</label>
-          <input id='sma-input' type='number' value={smaPeriods} onChange={handleSmaChange} />
-        </form>
+      <div className='flex items-center justify-between mb-3'>
+
+        <div className='flex'>
+          <h3 className='text-white text-xl me-3'>
+            {tickerId.replace(/_/g, '/')}
+          </h3>
+          <ChartControls>
+            <ChartControlSelect value={currentTimeframe()} onChange={handleTimeframeChange} options={timeframeOptions} />
+          </ChartControls>
+        </div>
+
+        <div>
+          <ChartControls>
+            <ChartControlToggler label='SMA' state={smaActive} onClick={toggleSma} />
+            {smaActive && <ChartControlInput label='SMA' value={smaPeriods} onChange={handleSmaChange} />}
+          </ChartControls>
+        </div>
+
       </div>
+
       {price && <Series type='candlestick' data={candles} />}
       {volume && <Series type='histogram' data={candles} />}
-      {volume && <Series type='line' data={calculateSMA(candles, smaPeriods)} />}
+      {smaActive && <Series type='line' data={sma(candles, smaPeriods)} />}
+
     </ChartContainer>
   )
 }
