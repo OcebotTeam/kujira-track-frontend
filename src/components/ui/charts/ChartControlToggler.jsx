@@ -2,7 +2,7 @@ import { PlusCircle, MinusCircle } from 'react-feather'
 
 export function ChartControlToggler ({ label, state, onClick }) {
   return (
-    <div className='flex items-center text-ligth'>
+    <div className='flex items-center text-light'>
       <button
         className={(state ? 'active' : '') + ' bg-transparent cursor-pointer outline-none hover:text-teal [&.active]:hover:text-danger'}
         onClick={onClick}

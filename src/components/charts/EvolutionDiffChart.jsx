@@ -4,7 +4,7 @@ import { ChartContainer } from './ChartContainer'
 import { Series } from './Series'
 
 export function EvolutionDiffChart ({ target }) {
-  const evolution = useEvolution(target, true)
+  const { evolution } = useEvolution(target, true)
 
   const evolutionFormatted = evolution.map((item) => {
     item.color = tailwindConfig.theme.colors.blue

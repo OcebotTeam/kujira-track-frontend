@@ -11,5 +11,10 @@ export function useEvolution (type, diff) {
       })
   }, [])
 
-  return evolution
+  // Variation percentage between the last element and the previous one
+  const variationPercentage = evolution.length > 1
+    ? ((evolution[evolution.length - 1].value - evolution[evolution.length - 2].value) / evolution[evolution.length - 2].value * 100).toFixed(2)
+    : 0
+
+  return { evolution, variationPercentage }
 }

@@ -25,12 +25,24 @@ export function Dashboard () {
 
       <Container>
         <TwoColumns>
-          <Block title='Staked KUJI'>
-            <EvolutionChart target='staking' />
+          <Block>
+            <EvolutionChart target='staking' title='Staked KUJI' />
           </Block>
 
           <Block title='Staked KUJI Diff'>
             <EvolutionDiffChart target='staking' diff />
+          </Block>
+        </TwoColumns>
+      </Container>
+
+      <Container>
+        <TwoColumns>
+          <Block>
+            <EvolutionChart target='v2/wallets' title='Wallets' />
+          </Block>
+
+          <Block title='Wallets'>
+            <EvolutionDiffChart target='v2/wallets' diff />
           </Block>
         </TwoColumns>
       </Container>

@@ -1,7 +1,7 @@
 export function ChartControlSelect ({ options, value, onChange, ...props }) {
   return (
     <select
-      className='bg-transparent text-ligth cursor-pointer border border-ligth outline-none rounded'
+      className='bg-transparent text-light cursor-pointer border border-light outline-none rounded'
       value={value}
       onChange={onChange}
     >
