@@ -6,7 +6,7 @@ import { ChartContainer } from './ChartContainer'
 import { Series } from './Series'
 import { ChartControls } from '../ui/charts/ChartControls'
 import { ChartControlSelect } from '../ui/charts/ChartControlSelect'
-import { ChartControlToggler } from '../ui/charts/ChartControlToggler'
+import { ChartControlLabel } from '../ui/charts/ChartControlLabel'
 import { ChartControlInput } from '../ui/charts/ChartControlInput'
 
 export function CandleChart ({ tickerId, price, volume }) {
@@ -22,9 +22,7 @@ export function CandleChart ({ tickerId, price, volume }) {
   const {
     sma,
     smaPeriods,
-    toggleSma,
-    changeSmaPeriods,
-    smaActive
+    changeSmaPeriods
   } = useSma()
 
   const {
@@ -76,8 +74,8 @@ export function CandleChart ({ tickerId, price, volume }) {
 
         <div>
           <ChartControls>
-            <ChartControlToggler label='SMA' state={smaActive} onClick={toggleSma} />
-            {smaActive && <ChartControlInput label='SMA' value={smaPeriods} onChange={handleSmaChange} />}
+            {volume && <ChartControlLabel label='SMA' />}
+            {volume && <ChartControlInput label='SMA' value={smaPeriods} onChange={handleSmaChange} />}
           </ChartControls>
         </div>
 
@@ -85,7 +83,7 @@ export function CandleChart ({ tickerId, price, volume }) {
 
       {price && <Series type='candlestick' data={candles} />}
       {volume && <Series type='histogram' data={candles} />}
-      {smaActive && <Series type='line' data={sma(candles, smaPeriods)} />}
+      {volume && <Series type='line' data={sma(candles, smaPeriods)} />}
 
     </ChartContainer>
   )
