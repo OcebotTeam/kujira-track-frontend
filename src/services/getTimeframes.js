@@ -1,6 +1,6 @@
 export function getTimeframes () {
-  const enpoint = import.meta.env.VITE_KT_API_ENDPOINT
-  const endpoint = `${enpoint}/fin/timeframes`
+  const baseEndpoint = import.meta.env.VITE_KT_API_ENDPOINT
+  const endpoint = `${baseEndpoint}/fin/timeframes`
 
   return fetch(endpoint)
     .then(response => response.json())

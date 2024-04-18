@@ -1,6 +1,6 @@
 export function getEvolution (target, diff) {
-  const enpoint = import.meta.env.VITE_KT_API_ENDPOINT
-  let endpoint = `${enpoint}/${target}`
+  const baseEndpoint = import.meta.env.VITE_KT_API_ENDPOINT
+  let endpoint = `${baseEndpoint}${target}`
 
   if (diff) {
     endpoint += '/diff'
