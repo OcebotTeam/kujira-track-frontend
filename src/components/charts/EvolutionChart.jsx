@@ -13,7 +13,7 @@ export function EvolutionChart ({ target, title }) {
   const symbol = variationPercentage > 0 ? <ArrowUp size='15' /> : <ArrowDown size='15' />
 
   return (
-    <>
+    <div>
       <div className='flex items-center mb-3'>
         <h2 className='text-white text-xl'>{title}</h2>
         <span className={'border ms-3 rounded px-1 flex items-center text-sm ' + colorClass}>{symbol}{variationPercentage}%</span>
@@ -21,6 +21,6 @@ export function EvolutionChart ({ target, title }) {
       <ChartContainer>
         <Series type='area' data={evolution} />
       </ChartContainer>
-    </>
+    </div>
   )
 }

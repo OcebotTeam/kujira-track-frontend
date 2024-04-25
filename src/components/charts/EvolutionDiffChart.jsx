@@ -22,7 +22,7 @@ export function EvolutionDiffChart ({ target, title }) {
   const symbol = lastValue > 0 ? '+' : ''
 
   return (
-    <>
+    <div>
       <div className='flex items-center mb-3'>
         <h2 className='text-white text-xl'>{title}</h2>
         <span className={'border ms-3 rounded px-1 flex items-center text-sm ' + colorClass}>{symbol}{formattedLastValue}</span>
@@ -30,6 +30,6 @@ export function EvolutionDiffChart ({ target, title }) {
       <ChartContainer>
         <Series type='histogram' data={evolutionFormatted} />
       </ChartContainer>
-    </>
+    </div>
   )
 }

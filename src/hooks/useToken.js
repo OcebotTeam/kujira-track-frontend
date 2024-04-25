@@ -7,7 +7,6 @@ export function useToken (tickerId) {
   useEffect(() => {
     getToken(tickerId)
       .then(data => {
-        console.log(data.price)
         setToken(data)
       })
   }, [])

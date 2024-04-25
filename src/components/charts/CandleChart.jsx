@@ -9,7 +9,7 @@ import { ChartControlSelect } from '../ui/charts/ChartControlSelect'
 import { ChartControlLabel } from '../ui/charts/ChartControlLabel'
 import { ChartControlInput } from '../ui/charts/ChartControlInput'
 
-export function CandleChart ({ tickerId, price, volume }) {
+export function CandleChart ({ target, price, volume, title }) {
   const [visibleTimeRange, setVisibleTimeRange] = useState(0)
 
   const {
@@ -28,7 +28,7 @@ export function CandleChart ({ tickerId, price, volume }) {
   const {
     candles,
     updateCandles
-  } = useCandles({ tickerId, timeframe: currentPrecision() })
+  } = useCandles({ target, timeframe: currentPrecision() })
 
   useEffect(() => {
     if (!visibleTimeRange) return
@@ -65,7 +65,7 @@ export function CandleChart ({ tickerId, price, volume }) {
 
         <div className='flex'>
           <h3 className='text-white text-xl me-3'>
-            {tickerId.replace(/_/g, '/')}
+            {title}
           </h3>
           <ChartControls>
             <ChartControlSelect value={currentTimeframe()} onChange={handleTimeframeChange} options={timeframeOptions} />

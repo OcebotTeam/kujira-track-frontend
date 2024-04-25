@@ -20,10 +20,10 @@ export function Dashboard () {
       <Container>
         <TwoColumns>
           <Block>
-            <CandleChart tickerId='KUJI_USK' price />
+            <CandleChart title='KUJI/USK' target='/fin/contracts/KUJI_USK/candles' price />
           </Block>
           <Block>
-            <CandleChart tickerId='KUJI_USK' volume />
+            <CandleChart title='FIN USD volume' target='/fin/volume' volume />
           </Block>
         </TwoColumns>
       </Container>
@@ -51,23 +51,11 @@ export function Dashboard () {
       <Container>
         <TwoColumns>
           <Block>
-            <EvolutionChart title='Staked KUJI' target='/staking' />
+            <EvolutionChart title='Staking Evolution' target='/staking' />
           </Block>
 
           <Block>
-            <EvolutionDiffChart title='Staked KUJI' target='/staking' />
-          </Block>
-        </TwoColumns>
-      </Container>
-
-      <Container>
-        <TwoColumns>
-          <Block>
-            <EvolutionChart target='/v2/wallets' title='Wallets' />
-          </Block>
-
-          <Block>
-            <EvolutionDiffChart title='Wallets' target='/v2/wallets' />
+            <EvolutionDiffChart title='Staking Activity' target='/staking' />
           </Block>
         </TwoColumns>
       </Container>
@@ -75,11 +63,23 @@ export function Dashboard () {
       <Container>
         <TwoColumns>
           <Block>
-            <EvolutionChart title='Mint' target='/mint/aggregation' />
+            <EvolutionChart title='Wallets evolution' target='/v2/wallets' />
           </Block>
 
           <Block>
-            <EvolutionDiffChart title='Mint' target='/mint/aggregation' />
+            <EvolutionDiffChart title='Wallets activity' target='/v2/wallets' />
+          </Block>
+        </TwoColumns>
+      </Container>
+
+      <Container>
+        <TwoColumns>
+          <Block>
+            <EvolutionChart title='Mint evolution' target='/mint/aggregation' />
+          </Block>
+
+          <Block>
+            <EvolutionDiffChart title='Mint activity' target='/mint/aggregation' />
           </Block>
         </TwoColumns>
       </Container>

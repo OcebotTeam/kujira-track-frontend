@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getCandles } from '../services/getCandles'
 
-export function useCandles ({ tickerId, timeframe }) {
+export function useCandles ({ target, timeframe }) {
   const [candles, setCandles] = useState([])
   const [page, setPage] = useState(0)
 
@@ -11,7 +11,7 @@ export function useCandles ({ tickerId, timeframe }) {
 
     if (!timeframe) return
 
-    getCandles({ tickerId, timeframe, page })
+    getCandles({ target, timeframe, page })
       .then(data => {
         setCandles(data.concat(currentCandles))
       })
