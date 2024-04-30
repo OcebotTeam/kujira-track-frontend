@@ -13,7 +13,7 @@ export function TokenList () {
 
   const tokenList = tokens.map(token => {
     return (
-      <div key={token.id}>
+      <div key={token.symbol}>
         <h2>{token.name}</h2>
         <p>{token.symbol}</p>
       </div>

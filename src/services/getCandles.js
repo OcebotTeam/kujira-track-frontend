@@ -3,8 +3,6 @@ export function getCandles ({ target, timeframe, page }) {
 
   const endpoint = `${baseEndpoint}${target}?timeframe=${timeframe}&page=${page}`
 
-  console.log(endpoint)
-
   return fetch(endpoint)
     .then(response => response.json())
     .then(json => json)

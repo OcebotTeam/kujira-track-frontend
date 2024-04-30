@@ -17,6 +17,8 @@ export function NavMenu (props) {
         <div className='ms-14'>
           <NavMenuLink href='/'>Dashboard</NavMenuLink>
           <NavMenuLink href='/tokens'>Tokens</NavMenuLink>
+          <NavMenuLink href='/fin'>FIN</NavMenuLink>
+          <NavMenuLink href='/api/doc'>API</NavMenuLink>
         </div>
 
       </div>

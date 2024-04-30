@@ -5,16 +5,16 @@ import { Block } from '../components/ui/elements/Block'
 import { CandleChart } from '../components/charts/CandleChart'
 import { EvolutionChart } from '../components/charts/EvolutionChart'
 import { EvolutionDiffChart } from '../components/charts/EvolutionDiffChart'
-import { useToken } from '../hooks/useToken.js'
+import { useTokenPrice } from '../hooks/useTokenPrice.js'
 import { TrendingUp } from 'react-feather'
 
 export function Dashboard () {
-  const kujiPrice = useToken('KUJI')
+  const kujiPrice = useTokenPrice('KUJI')
 
   return (
     <>
       <Container>
-        <h1 className='text-dark my-4 text-3xl uppercase font-display font-bold'>Dashboard</h1>
+        <h1 className='text-white my-4 text-3xl uppercase font-display font-bold'>Dashboard</h1>
       </Container>
 
       <Container>
@@ -23,7 +23,7 @@ export function Dashboard () {
             <CandleChart title='KUJI/USK' target='/fin/contracts/KUJI_USK/candles' price />
           </Block>
           <Block>
-            <CandleChart title='FIN USD volume' target='/fin/volume' volume />
+            <CandleChart title='FIN USD volume' target='/fin/usd-volume' volume />
           </Block>
         </TwoColumns>
       </Container>
@@ -36,14 +36,14 @@ export function Dashboard () {
                 <TrendingUp className='inline-block mr-2' />
                 <span className='text-md font-bold'>KUJI price</span>
               </div>
-              <div className='text-right text-lg font-light'>${kujiPrice}</div>
+              <div className='text-right text-white text-lg font-light'>${kujiPrice}</div>
             </div>
           </Block>
-          <Block bg='bg-gradient-to-l from-teal to-blue'>
-            ...
+          <Block bg='bg-gradient-to-l from-teal to-blue text-white'>
+            Placeholder
           </Block>
-          <Block bg='bg-teal'>
-            ...
+          <Block bg='bg-teal text-white'>
+            Placeholder
           </Block>
         </ThreeColumns>
       </Container>
