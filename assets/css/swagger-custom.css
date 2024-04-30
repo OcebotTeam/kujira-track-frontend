@@ -1,0 +1,20 @@
+.swagger-ui .info .title {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.875rem;
+    margin-right: .2em;
+}
+
+.swagger-ui .info .title > span {
+    margin-left: 5px;
+}
+
+.swagger-ui .info .title .version-stamp {
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #60fbd0 !important;
+}
+.swagger-ui .info .title .version-stamp .version {
+    color: #222 !important;
+}
+

@@ -2,6 +2,7 @@ import { Container } from '../components/ui/layout/Container'
 import { TwoColumns } from '../components/ui/layout/TwoColumns.jsx'
 import { Block } from '../components/ui/elements/Block.jsx'
 import { CandleChart } from '../components/charts/CandleChart.jsx'
+import { FinContractTable } from '../components/data/FinContractTable.jsx'
 
 export function Fin () {
   return (
@@ -16,9 +17,13 @@ export function Fin () {
             <CandleChart title='FIN USD volume' target='/fin/usd-volume' volume />
           </Block>
           <Block>
-            <CandleChart title='FIN fees generation' target='/fin/fees' volume />
+            ...
           </Block>
         </TwoColumns>
+      </Container>
+
+      <Container>
+        <FinContractTable />
       </Container>
     </>
   )

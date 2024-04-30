@@ -4,13 +4,13 @@ import { LinkButton } from '../elements/LinkButton'
 
 export function NavMenu (props) {
   return (
-    <nav className='p-4 flex items-center justify-between'>
+    <nav className='p-4 flex items-center justify-between mb-12'>
 
       <div className='flex items-center'>
 
         <a href='/' className='inline-flex items-center'>
           <span className='text-white uppercase font-bold font-display'>Kujira</span>
-          <img src={logoImg} className='inline w-8 mx-1.5' />
+          <img alt='logo' src={logoImg} className='inline w-8 mx-1.5' />
           <span className='text-white uppercase font-bold font-display'>Track</span>
         </a>
 
@@ -18,13 +18,13 @@ export function NavMenu (props) {
           <NavMenuLink href='/'>Dashboard</NavMenuLink>
           <NavMenuLink href='/tokens'>Tokens</NavMenuLink>
           <NavMenuLink href='/fin'>FIN</NavMenuLink>
-          <NavMenuLink href='/api/doc'>API</NavMenuLink>
+          <NavMenuLink href='/api/doc' outline>API</NavMenuLink>
         </div>
 
       </div>
 
       <div>
-        <LinkButton href='/'>STAKE</LinkButton>
+        <LinkButton target='_blank' href='https://blue.kujira.network/stake/kujiravaloper1wlduasdfr9jea5t5awulgs8tky3tdat20y02k0'>STAKE</LinkButton>
       </div>
 
       {props.children}

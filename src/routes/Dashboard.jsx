@@ -39,10 +39,10 @@ export function Dashboard () {
               <div className='text-right text-white text-lg font-light'>${kujiPrice}</div>
             </div>
           </Block>
-          <Block bg='bg-gradient-to-l from-teal to-blue text-white'>
+          <Block bg='bg-gradient-to-tl md:bg-gradient-to-l from-teal to-blue'>
             Placeholder
           </Block>
-          <Block bg='bg-teal text-white'>
+          <Block bg='bg-teal'>
             Placeholder
           </Block>
         </ThreeColumns>
