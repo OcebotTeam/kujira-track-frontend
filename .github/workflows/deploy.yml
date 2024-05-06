@@ -10,29 +10,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production
+    env:
+      - VITE_KT_API_ENDPOINT: https://api.kujira-track.app
+      - VITE_KT_API_OPENAPI_JSON: https://api.kujira-track.app/openapi/json
+      
     strategy:
       matrix:
         node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
 
-    - name: Copy result in server
-      uses: easingthemes/ssh-deploy@main
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.OCEBOT_PRIVATE_SSH_KEY }}
-        ARGS: "-rlgoDzvc -i --delete"
-        SOURCE: "dist/"
-        REMOTE_HOST: ${{ secrets.OCEBOT_HOST }}
-        REMOTE_USER: ${{ secrets.OCEBOT_HOST_USER }}
-        TARGET: ${{ secrets.KT_HOST_PATH }}
-        EXCLUDE: ""
+      - name: Copy result in server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.OCEBOT_PRIVATE_SSH_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.OCEBOT_HOST }}
+          REMOTE_USER: ${{ secrets.OCEBOT_HOST_USER }}
+          TARGET: ${{ secrets.KT_HOST_PATH }}
+          EXCLUDE: ""
