@@ -10,10 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      - VITE_KT_API_ENDPOINT: https://api.kujira-track.app
-      - VITE_KT_API_OPENAPI_JSON: https://api.kujira-track.app/openapi/json
-      
+
     strategy:
       matrix:
         node-version: [20.x]
